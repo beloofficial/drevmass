@@ -45,3 +45,8 @@ Route::post('/reset-password', [AuthController::class, 'resetPassword'])->name('
 Route::get('/reset-password-success', function () {
     return view('auth.reset-password-success');
 })->name('password-reset-success');
+
+
+Route::get('__health', function () {
+   echo "working";
+});
