@@ -24,11 +24,18 @@
                                         <input type="password" id="password" class="form-control" name="password" required autofocus>
                                     </div>
                                 </div>
+
+
                                 <div class="col-md-6 offset-md-4">
                                     <button type="submit" class="btn btn-primary">
                                         Войти
                                     </button>
                                 </div>
+                                @if (isset($errors) && $errors->has('password'))
+                                    <div class="col-md-6 offset-md-4" style="color:red">
+                                        Недействительные учетные данные.
+                                    </div>
+                                @endif
                             </form>
 
                         </div>

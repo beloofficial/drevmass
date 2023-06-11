@@ -14,9 +14,7 @@ class AuthWebController extends Controller
     public function login(Request $request)
     {
         if (!Auth::attempt($request->only('email', 'password'))) {
-            return response()->json([
-                'message' => 'Login information is invalid.'
-            ], 401);
+            return redirect('login')->withErrors(['password' => 'Invalid credentials. Please try again.']);
         }
 
         $user = Auth::getProvider()->retrieveByCredentials($request->only('email', 'password'));

@@ -15,7 +15,7 @@ class UserController extends Controller
 
     public function showUserInformation()
     {
-        return auth()->user()->with('information')->first();
+        return auth()->user()->with('information', 'day')->find(auth()->id());
     }
 
     public function update(UpdateUserRequest $request): array|\Illuminate\Contracts\Auth\Authenticatable|null

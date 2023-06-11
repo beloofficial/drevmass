@@ -1,9 +1,10 @@
 <?php
 
+use App\Http\Controllers\DayController;
 use App\Http\Controllers\InformationController;
 use App\Http\Controllers\LessonController;
+use App\Http\Controllers\ProductController;
 use App\Http\Controllers\UserController;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 
@@ -31,6 +32,10 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
         Route::post('/', [InformationController::class, 'store']);
     });
 
+    Route::group(['prefix' => 'days'], function() {
+        Route::post('/', [DayController::class, 'store']);
+    });
+
     Route::group(['prefix' => 'user'], function() {
         Route::get('/', [UserController::class, 'show']);
         Route::get('/information', [UserController::class, 'showUserInformation']);
@@ -41,6 +46,12 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
         Route::get('/', [LessonController::class, 'get']);
         Route::get('/{lesson}', [LessonController::class, 'show']);
         Route::post('/', [LessonController::class, 'store']);
+    });
+
+    Route::group(['prefix' => 'products'], function() {
+        Route::get('/', [ProductController::class, 'get']);
+        Route::get('/{product}', [ProductController::class, 'show']);
+        Route::post('/', [ProductController::class, 'store']);
     });
 });
 

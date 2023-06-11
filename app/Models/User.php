@@ -51,4 +51,9 @@ class User extends Authenticatable
     {
         return $this->hasOne(Information::class);
     }
+
+    public function day(): \Illuminate\Database\Eloquent\Relations\HasOne|null
+    {
+        return $this->hasOne(Day::class);
+    }
 }
