@@ -3,25 +3,25 @@
 @section('content')
     <div style="margin-left: 200px;margin-right: 200px; margin-top:20px">
 
-        <form action="/admin/lessons/{{$lesson->id ?? 'create/new'}}" method="post" id="form" enctype="multipart/form-data">
+        <form action="/admin/products/{{$product->id ?? 'create/new'}}" method="post" id="form" enctype="multipart/form-data">
             @csrf
             <!-- Name input -->
             <div class="form-outline mb-4">
-                <input type="text" id="form4Example1" class="form-control" name="name" value="{{$lesson->name ?? ''}}"/>
+                <input type="text" id="form4Example1" class="form-control" name="name" value="{{$product->name ?? ''}}"/>
                 <label class="form-label" for="form4Example1">Название</label>
                 @if($errors->has('name')) <label class="form-label" for="form4Example1" style="color:red">Заполните поле</label> @endif
             </div>
 
             <!-- title input -->
             <div class="form-outline mb-4">
-                <input type="text" id="form4Example2" class="form-control" name="title" value="{{$lesson->title ?? ''}}"/>
+                <input type="text" id="form4Example2" class="form-control" name="title" value="{{$product->title ?? ''}}"/>
                 <label class="form-label" for="form4Example2">Заголовок</label>
                 @if($errors->has('name')) <label class="form-label" for="form4Example1" style="color:red">Заполните поле</label> @endif
             </div>
 
             <!-- description input -->
             <div class="form-outline mb-4">
-                <textarea class="form-control" id="form4Example3" name="description" rows="4">{{$lesson->description ?? ''}}</textarea>
+                <textarea class="form-control" id="form4Example3" name="description" rows="4">{{$product->description ?? ''}}</textarea>
                 <label class="form-label" for="form4Example3">Описание</label>
                 @if($errors->has('name')) <label class="form-label" for="form4Example1" style="color:red">Заполните поле</label> @endif
             </div>
@@ -29,7 +29,7 @@
             <!-- image input -->
             <div style="border: 1px solid #ced4da; padding: 15px; width: 200px">
                 <div class="mb-4 d-flex justify-content-center">
-                    <img src="{{ URL::to('/') }}/{{$lesson->image_src ?? ''}}" id="image-preview" style="width: 700px; @if(!isset($lesson)) display:none @endif"/>
+                    <img src="{{ URL::to('/') }}/{{$product->image_src ?? ''}}" id="image-preview" style="width: 700px; @if(!isset($product)) display:none @endif"/>
                 </div>
                 <div class="d-flex justify-content-center">
                     <div class="btn btn-primary btn-rounded" onclick="openModal(event)">
@@ -42,45 +42,63 @@
 
             <!-- Video input -->
             <div class="form-outline mb-4">
-                <input type="text" id="form4Example2" class="form-control" name="video_src" value="{{$lesson->video_src ?? ''}}"/>
+                <input type="text" id="form4Example2" class="form-control" name="video_src" value="{{$product->video_src ?? ''}}"/>
                 <label class="form-label" for="form4Example2">Ссылка на видео</label>@if($errors->has('name')) <label class="form-label" for="form4Example1" style="color:red">Заполните поле</label> @endif
             </div>
 
-            <!-- Duration input -->
+            <!-- Price input -->
+            <div class="form-outline mb-4">
+                <input type="text" id="form4Example2" class="form-control" name="price" value="{{$product->price ?? ''}}"/>
+                <label class="form-label" for="form4Example2">Цена</label>
+                @if($errors->has('price')) <label class="form-label" for="form4Example1" style="color:red">Заполните поле</label> @endif
+            </div>
+
+            <!-- Weight input -->
+            <div class="form-outline mb-4">
+                <input type="text" id="form4Example2" class="form-control" name="weight" value="{{$product->weight ?? ''}}"/>
+                <label class="form-label" for="form4Example2">Вес</label>
+                @if($errors->has('weight')) <label class="form-label" for="form4Example1" style="color:red">Заполните поле</label> @endif
+            </div>
+
+            <!-- Size input -->
             <div class="form-outline mb-4">
                 <div style="display: flex">
-                    <input style="width: 100px; text-align: center" type="number" id="minute" class="form-control" value="{{(int) (($lesson->duration ?? 0) / 60)}}" oninput="limitInputSymbols(this, 23)"/>
-                    <input style="width: 100px; text-align: center" type="number" id="second" class="form-control" value="{{($lesson->duration ?? 0) % 60}}" oninput="limitInputSymbols(this, 59)"/>
-                    <input id="duration" name="duration" hidden>
+                    <input style="width: 100px; text-align: center" type="number" id="length" name="length" class="form-control" value="{{$product->length ?? ''}}" />
+                    <input style="width: 100px; text-align: center" type="number" id="height" name="height" class="form-control" value="{{$product->height ?? ''}}" />
                 </div>
 
-                <label class="form-label" for="form4Example2">Длительность видео</label>
+                <label class="form-label" for="form4Example2">Длина/Высота</label>
+            </div>
+
+            <!-- Weight input -->
+            <div class="form-check mb-4" >
+                <input class="form-check-input" style="width: 30px;height: 30px" type="checkbox" id="flexSwitchCheckDefault"
+                       {{isset($product) ? ($product->status ? "checked" : "") : "checked"}} name="status" value="{{$product->status ?? 1}}">
+                <label class="form-check-label" style="font-size: 18px; margin-left: 25px; margin-top:5px" for="flexSwitchCheckDefault">Статус</label>
+                @if($errors->has('status')) <label class="form-label" for="form4Example1" style="color:red">Заполните поле</label> @endif
             </div>
 
             <!-- Submit button -->
             <div style="display: flex">
-                <button onclick="convertAndAssignDuration(event)" type="submit" class="btn btn-primary mb-4" style="width: 200px;">Сохранить</button>
-                @if(isset($lesson))
-                <a href="/admin/lessons/{{$lesson->id ?? 0}}/delete" type="submit" class="btn btn-danger mb-4" style="width: 200px; margin-left: auto; color:white">Удалить</a>
+                <button type="submit" class="btn btn-primary mb-4" style="width: 200px;">Сохранить</button>
+                @if(isset($product))
+                <a href="/admin/products/{{$product->id ?? 0}}/delete" type="submit" class="btn btn-danger mb-4" style="width: 200px; margin-left: auto; color:white">Удалить</a>
                 @endif
             </div>
         </form>
     </div>
     <script>
+        $('input[type="checkbox"]').change(function(){
+            this.value = (Number(this.checked));
+        });
+
         function openModal(event) {
-            console.log(event.target.tagName);
             if (event.target.tagName !== 'INPUT' && event.target.tagName !== 'LABEL') {
                 console.log(1);
                 var fileInput = document.getElementById('customFile1');
                 fileInput.click();
             }
 
-        }
-        function limitInputSymbols(input, maxSymbols) {
-            input.value = input.value.replace(/\D/g, '');
-            if (input.value > maxSymbols) {
-                input.value = maxSymbols;
-            }
         }
 
         function previewImage(event) {
@@ -93,20 +111,6 @@
                 };
                 reader.readAsDataURL(input.files[0]);
             }
-        }
-
-        function convertAndAssignDuration(event) {
-            event.preventDefault();
-            var minuteInput = document.getElementById('minute');
-            var secondInput = document.getElementById('second');
-            var durationInput = document.getElementById('duration');
-
-            var minutes = parseInt(minuteInput.value);
-            var seconds = parseInt(secondInput.value);
-
-            durationInput.value = minutes * 60 + seconds;
-
-            document.getElementById('form').submit();
         }
     </script>
 @endsection

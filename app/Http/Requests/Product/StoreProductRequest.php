@@ -32,7 +32,7 @@ class StoreProductRequest extends FormRequest
             'length'      => ['required', 'integer'],
             'height'      => ['required', 'integer'],
             'icon'        => ['string'],
-            'status'      => ['required', 'boolean'],
+            'status'      => ['nullable', 'boolean'],
         ];
     }
 }

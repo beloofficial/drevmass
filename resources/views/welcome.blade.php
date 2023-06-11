@@ -2,6 +2,5 @@
 
 @section('content')
     <main class="login-form mt-5">
-        ENTER
     </main>
 @endsection

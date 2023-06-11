@@ -18,7 +18,7 @@ use Illuminate\Support\Facades\Route;
 Route::group(['middleware' => ['auth']], function() {
 
     Route::get('/', function () {
-        return view('welcome');
+        return redirect('/admin/products');
     });
 
     Route::get('/admin/lessons', [AuthWebController::class, 'lessons'])->name('list-lessons');
@@ -27,6 +27,13 @@ Route::group(['middleware' => ['auth']], function() {
     Route::get('/admin/lessons/{lesson}/delete', [AuthWebController::class, 'deleteLesson']);
     Route::get('/admin/lessons/create/new', [AuthWebController::class, 'createLesson']);
     Route::post('/admin/lessons/create/new', [AuthWebController::class, 'createLessonPost']);
+
+    Route::get('/admin/products', [AuthWebController::class, 'products'])->name('list-products');
+    Route::get('/admin/products/{product}', [AuthWebController::class, 'showProduct']);
+    Route::post('/admin/products/{product}', [AuthWebController::class, 'updateProduct']);
+    Route::get('/admin/products/{product}/delete', [AuthWebController::class, 'deleteProduct']);
+    Route::get('/admin/products/create/new', [AuthWebController::class, 'createProduct']);
+    Route::post('/admin/products/create/new', [AuthWebController::class, 'createProductPost']);
 });
 
 Route::get('/login', function () {

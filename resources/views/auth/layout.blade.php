@@ -54,7 +54,7 @@
                 <span class="navbar-toggler-icon"></span>
             </button>
         @else
-            <a class="navbar-brand" href="/">Ролики</a>
+            <a class="navbar-brand" href="/admin/products">Продукты</a>
             <a class="navbar-brand" href="/admin/lessons">Уроки</a>
         @endguest
         <div class="collapse navbar-collapse" id="navbarSupportedContent">

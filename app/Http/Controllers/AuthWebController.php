@@ -4,7 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\Lesson\StoreLessonRequest;
 use App\Http\Requests\Lesson\UpdateLessonRequest;
+use App\Http\Requests\Product\StoreProductRequest;
+use App\Http\Requests\Product\UpdateProductRequest;
 use App\Models\Lesson;
+use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
@@ -111,5 +114,67 @@ class AuthWebController extends Controller
         $lesson = Lesson::create($data);
 
         return redirect('admin/lessons/' . $lesson->id);
+    }
+
+    public function products()
+    {
+        $products = Product::all();
+
+        return view('products', ['products' => $products]);
+    }
+
+    public function showProduct(Product $product)
+    {
+        return view('product', ['product' => $product]);
+    }
+
+    public function updateProduct(Product $product, UpdateProductRequest $request)
+    {
+        $data = $request->validated();
+
+        if(isset($data['status'])) {
+            $data['status'] = 1;
+        } else {
+            $data['status'] = 0;
+        }
+
+        if(isset($data['image'])) {
+            $data['image_src'] = $this->imageUpload($data['image']);
+        }
+
+        $product->fill($data);
+        $product->save();
+
+        return redirect()->back();
+    }
+
+    public function deleteProduct(Product $product)
+    {
+        $product->delete();
+        return redirect()->route('list-products');
+    }
+
+    public function createProduct()
+    {
+        return view('product');
+    }
+
+    public function createProductPost(StoreProductRequest $request)
+    {
+        $data = $request->validated();
+
+        if(isset($data['status'])) {
+            $data['status'] = 1;
+        } else {
+            $data['status'] = 0;
+        }
+
+        if(isset($data['image'])) {
+            $data['image_src'] = $this->imageUpload($data['image']);
+        }
+
+        $product = Product::create($data);
+
+        return redirect('admin/products/' . $product->id);
     }
 }
