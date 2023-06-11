@@ -6,7 +6,7 @@
             <div class="row justify-content-center">
                 <div class="col-md-8">
                     <div class="card">
-                        <div class="card-header">Восстановить пароль</div>
+                        <div class="card-header">Войти</div>
                         <div class="card-body">
 
                             <form action="/admin/login" method="post">
