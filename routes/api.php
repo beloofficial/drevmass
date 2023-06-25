@@ -53,6 +53,11 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
         Route::get('/{product}', [ProductController::class, 'show']);
         Route::post('/', [ProductController::class, 'store']);
     });
+
+    Route::group(['prefix' => 'favorites'], function() {
+        Route::get('/', [LessonController::class, 'getFavorites']);
+        Route::post('/', [LessonController::class, 'changeFavorites']);
+    });
 });
 
 
