@@ -7,6 +7,7 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\SupportController;
 
 /*
 |--------------------------------------------------------------------------
@@ -57,6 +58,13 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::group(['prefix' => 'favorites'], function() {
         Route::get('/', [LessonController::class, 'getFavorites']);
         Route::post('/', [LessonController::class, 'changeFavorites']);
+    });
+
+    Route::group(['prefix' => 'supports'], function() {
+        Route::get('/', [SupportController::class, 'get']);
+        Route::get('/{support}', [SupportController::class, 'show']);
+        Route::post('/', [SupportController::class, 'store']);
+        Route::post('/{support}/answer', [SupportController::class, 'answer']);
     });
 });
 

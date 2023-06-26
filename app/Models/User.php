@@ -57,4 +57,9 @@ class User extends Authenticatable
     {
         return $this->hasOne(Day::class);
     }
+
+    public function support()
+    {
+        return $this->hasMany(Support::class);
+    }
 }
