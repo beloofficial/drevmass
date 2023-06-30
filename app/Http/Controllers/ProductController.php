@@ -20,7 +20,7 @@ class ProductController extends Controller
     public function store(StoreProductRequest $request)
     {
         $data = $request->validated();
-
+dd($data);
         $data['image_src'] = $this->imageUpload($data['image']);
 
         return Product::create($data);
