@@ -10,9 +10,12 @@ use App\Http\Requests\Support\AnswerSupportRequest;
 use App\Models\Lesson;
 use App\Models\Product;
 use App\Models\Support;
+use App\Models\User;
+use App\Notifications\SupportFromAdminNotification;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Facades\Session;
 
 class AuthWebController extends Controller
@@ -213,6 +216,8 @@ class AuthWebController extends Controller
         $data = $request->validated();
         $support->fill($data);
         $support->save();
+
+        Notification::send(User::find(1), new SupportFromAdminNotification($support, $support->user));
 
         return redirect()->back()->with('success', 'Изменения сохранены!');
     }

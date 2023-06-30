@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use App\Http\Requests\Support\AnswerSupportRequest;
 use App\Http\Requests\Support\CreateSupportRequest;
 use App\Models\Support;
+use App\Models\User;
+use App\Notifications\SupportFromClientNotification;
+use Illuminate\Support\Facades\Notification;
 
 class SupportController extends Controller
 {
@@ -22,7 +25,11 @@ class SupportController extends Controller
     {
         $data = $request->validated();
 
-        return auth()->user()->support()->create($data);
+        $support = auth()->user()->support()->create($data);
+
+        Notification::send(User::find(1), new SupportFromClientNotification($support, auth()->user()));
+
+        return $support;
     }
 
     public function answer(Support $support, AnswerSupportRequest $request)
