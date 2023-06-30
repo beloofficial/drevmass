@@ -30,7 +30,7 @@
             </td>
             <td>
                 <iframe width="200" height="100"
-                        src="{{$product->video_src}}">
+                        src="https://www.youtube.com/embed/{{$product->video_src}}">
                 </iframe>
             </td>
             <td>

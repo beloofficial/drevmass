@@ -29,7 +29,7 @@
             </td>
             <td>
                 <iframe width="200" height="100"
-                        src="{{$lesson->video_src}}">
+                        src="https://www.youtube.com/embed/{{$lesson->video_src}}">
                 </iframe>
             </td>
             <td>

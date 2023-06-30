@@ -29,8 +29,9 @@ class UpdateProductRequest extends FormRequest
             'video_src'   => ['string'],
             'price'       => ['required', 'integer'],
             'weight'      => ['required', 'integer'],
-            'length'      => ['required', 'integer'],
-            'height'      => ['required', 'integer'],
+            'length'      => ['required', 'numeric'],
+            'height'      => ['required', 'numeric'],
+            'depth'       => ['required', 'numeric'],
             'icon'        => ['string', 'nullable'],
             'status'      => ['nullable', 'boolean'],
         ];

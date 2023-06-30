@@ -16,7 +16,7 @@ class Product extends Model
 
     const
         STAR = 'star',
-        HOT = 'hot';
+        FIRE = 'fire';
 
 
     /**
@@ -34,7 +34,44 @@ class Product extends Model
         'weight',
         'length',
         'height',
+        'depth',
         'icon',
         'status',
     ];
+
+    /**
+     * Get the value of the your_column attribute.
+     *
+     * @param  string  $value
+     * @return string
+     */
+    public function getLengthAttribute($value)
+    {
+        $trimmedValue = rtrim($value, '0');
+        return rtrim($trimmedValue, '.');
+    }
+
+    /**
+     * Get the value of the your_column attribute.
+     *
+     * @param  string  $value
+     * @return string
+     */
+    public function getHeightAttribute($value)
+    {
+        $trimmedValue = rtrim($value, '0');
+        return rtrim($trimmedValue, '.');
+    }
+
+    /**
+     * Get the value of the your_column attribute.
+     *
+     * @param  string  $value
+     * @return string
+     */
+    public function getDepthAttribute($value)
+    {
+        $trimmedValue = rtrim($value, '0');
+        return rtrim($trimmedValue, '.');
+    }
 }

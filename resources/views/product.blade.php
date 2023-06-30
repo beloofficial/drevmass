@@ -27,9 +27,9 @@
             </div>
 
             <!-- image input -->
-            <div style="border: 1px solid #ced4da; padding: 15px; width: 200px">
-                <div class="mb-4 d-flex justify-content-center">
-                    <img src="{{ URL::to('/') }}/{{$product->image_src ?? ''}}" id="image-preview" style="width: 700px; @if(!isset($product)) display:none @endif"/>
+            <div style="border: 1px solid #ced4da; padding: 15px; width: 500px">
+                <div class="d-flex" style="width: 200px; height: 200px; margin: 0 auto 20px auto; justify-content: center;">
+                    <img src="{{ URL::to('/') }}/{{$product->image_src ?? ''}}" id="image-preview" style="width: fit-content; margin: 0 auto; @if(!isset($product)) display:none @endif"/>
                 </div>
                 <div class="d-flex justify-content-center">
                     <div class="btn btn-primary btn-rounded" onclick="openModal(event)">
@@ -63,11 +63,12 @@
             <!-- Size input -->
             <div class="form-outline mb-4">
                 <div style="display: flex">
-                    <input style="width: 100px; text-align: center" type="number" id="length" name="length" class="form-control" value="{{$product->length ?? ''}}" />
-                    <input style="width: 100px; text-align: center" type="number" id="height" name="height" class="form-control" value="{{$product->height ?? ''}}" />
+                    <input style="width: 100px; text-align: center" id="length" name="length" class="form-control" value="{{$product->length ?? ''}}" />
+                    <input style="width: 100px; text-align: center" id="height" name="height" class="form-control" value="{{$product->height ?? ''}}" />
+                    <input style="width: 100px; text-align: center" id="depth" name="depth" class="form-control" value="{{$product->depth ?? ''}}" />
                 </div>
 
-                <label class="form-label" for="form4Example2">Длина/Высота</label>
+                <label class="form-label" for="form4Example2">Длина/Высота/Ширина</label>
             </div>
 
             <!-- Weight input -->

@@ -2,7 +2,9 @@
 
 namespace App\Http\Requests\Product;
 
+use App\Models\Product;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class StoreProductRequest extends FormRequest
 {
@@ -29,9 +31,10 @@ class StoreProductRequest extends FormRequest
             'video_src'   => ['string'],
             'price'       => ['required', 'integer'],
             'weight'      => ['required', 'integer'],
-            'length'      => ['required', 'integer'],
-            'height'      => ['required', 'integer'],
-            'icon'        => ['string'],
+            'length'      => ['required', 'numeric'],
+            'height'      => ['required', 'numeric'],
+            'depth'       => ['required', 'numeric'],
+            'icon'        => ['nullable','string', Rule::in(Product::STAR, Product::FIRE)],
             'status'      => ['nullable', 'boolean'],
         ];
     }

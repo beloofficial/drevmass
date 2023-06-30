@@ -1,7 +1,7 @@
 @extends('auth.layout')
 
 @section('content')
-    <div style="margin-left: 200px;margin-right: 200px; margin-top:20px">
+    <div class="container" style="margin-top:20px">
 
         <form action="/admin/lessons/{{$lesson->id ?? 'create/new'}}" method="post" id="form" enctype="multipart/form-data">
             @csrf
@@ -27,9 +27,9 @@
             </div>
 
             <!-- image input -->
-            <div style="border: 1px solid #ced4da; padding: 15px; width: 200px">
-                <div class="mb-4 d-flex justify-content-center">
-                    <img src="{{ URL::to('/') }}/{{$lesson->image_src ?? ''}}" id="image-preview" style="width: 700px; @if(!isset($lesson)) display:none @endif"/>
+            <div style="border: 1px solid #ced4da; padding: 15px; width: 500px">
+                <div class="d-flex" style="width: 200px; height: 200px; margin: 0 auto 20px auto; justify-content: center;">
+                    <img src="{{ URL::to('/') }}/{{$lesson->image_src ?? ''}}" id="image-preview" style="width: fit-content; margin: 0 auto; @if(!isset($lesson)) display:none @endif"/>
                 </div>
                 <div class="d-flex justify-content-center">
                     <div class="btn btn-primary btn-rounded" onclick="openModal(event)">

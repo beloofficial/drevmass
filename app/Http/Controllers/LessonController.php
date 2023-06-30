@@ -22,8 +22,22 @@ class LessonController extends Controller
 
     }
 
-    public function show(Lesson $lesson)
+    public function show(int $lessonId)
     {
+        $lesson = DB::table('lessons')
+            ->leftJoin('favorites', function ($join) {
+                $join->on('lessons.id', '=', 'favorites.favoriteable_id')
+                    ->where('favorites.favoriteable_type', Lesson::class)
+                    ->where('favorites.user_id', auth()->id());
+            })
+            ->select('lessons.*', DB::raw('IF(favorites.id IS NULL, false, true) as favorite'))
+            ->where('lessons.id', $lessonId)
+            ->first();
+
+        if(!$lesson) {
+            abort(404, "Model with ID:$lessonId not found");
+        }
+
         return $lesson;
     }
 
