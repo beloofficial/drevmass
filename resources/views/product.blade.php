@@ -1,7 +1,7 @@
 @extends('auth.layout')
 
 @section('content')
-    <div style="margin-left: 200px;margin-right: 200px; margin-top:20px">
+    <div class="container" style="margin-top:20px">
 
         <form action="/admin/products/{{$product->id ?? 'create/new'}}" method="post" id="form" enctype="multipart/form-data">
             @csrf
