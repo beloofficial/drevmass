@@ -19,6 +19,7 @@ class ProductController extends Controller
 
     public function store(StoreProductRequest $request)
     {
+        ini_set('memory_limit', '5128M');
         $data = $request->validated();
 
         $data['image_src'] = $this->imageUpload($data['image']);
