@@ -46,13 +46,13 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::group(['prefix' => 'lessons'], function() {
         Route::get('/', [LessonController::class, 'get']);
         Route::get('/{lesson}', [LessonController::class, 'show']);
-        Route::post('/', [LessonController::class, 'store']);
+        Route::post('/', [LessonController::class, 'store'])->middleware('admin');
     });
 
     Route::group(['prefix' => 'products'], function() {
         Route::get('/', [ProductController::class, 'get']);
         Route::get('/{product}', [ProductController::class, 'show']);
-        Route::post('/', [ProductController::class, 'store']);
+        Route::post('/', [ProductController::class, 'store'])->middleware('admin');
     });
 
     Route::group(['prefix' => 'favorites'], function() {
@@ -61,10 +61,10 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     });
 
     Route::group(['prefix' => 'supports'], function() {
-        Route::get('/', [SupportController::class, 'get']);
-        Route::get('/{support}', [SupportController::class, 'show']);
+        Route::get('/', [SupportController::class, 'get'])->middleware('admin');
+        Route::get('/{support}', [SupportController::class, 'show'])->middleware('admin');
         Route::post('/', [SupportController::class, 'store']);
-        Route::post('/{support}/answer', [SupportController::class, 'answer']);
+        Route::post('/{support}/answer', [SupportController::class, 'answer'])->middleware('admin');
     });
 });
 
