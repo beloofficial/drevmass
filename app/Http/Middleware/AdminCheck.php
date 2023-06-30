@@ -23,7 +23,7 @@ class AdminCheck
                 Auth::logout();
                 return redirect('login')->withErrors(['password' => 'error']);
             }
-            return new Response('Permission Denied', 401);
+            return new Response('Permission Denied', 403);
         }
         return $next($request);
     }
