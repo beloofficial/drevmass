@@ -56,6 +56,7 @@
         @else
             <a class="navbar-brand" href="/admin/products">Продукты</a>
             <a class="navbar-brand" href="/admin/lessons">Уроки</a>
+            <a class="navbar-brand" href="/admin/supports">Поддержка</a>
         @endguest
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav ml-auto">

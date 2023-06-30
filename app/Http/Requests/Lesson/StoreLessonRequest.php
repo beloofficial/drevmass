@@ -25,7 +25,7 @@ class StoreLessonRequest extends FormRequest
             'name' => ['required', 'string'],
             'title' => ['required', 'string'],
             'description' => ['required', 'string'],
-            'image' => ['required', 'file'],
+            'image' => ['required', 'file', 'max:5128'],
             'video_src' => ['string'],
             'duration' => ['integer']
         ];

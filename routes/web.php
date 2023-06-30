@@ -34,6 +34,10 @@ Route::group(['middleware' => ['auth']], function() {
     Route::get('/admin/products/{product}/delete', [AuthWebController::class, 'deleteProduct']);
     Route::get('/admin/products/create/new', [AuthWebController::class, 'createProduct']);
     Route::post('/admin/products/create/new', [AuthWebController::class, 'createProductPost']);
+
+    Route::get('/admin/supports', [AuthWebController::class, 'supports'])->name('list-supports');
+    Route::get('/admin/supports/{support}', [AuthWebController::class, 'showSupport']);
+    Route::post('/admin/supports/{support}', [AuthWebController::class, 'updateSupport']);
 });
 
 Route::get('/login', function () {

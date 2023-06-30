@@ -2,7 +2,11 @@
 
 @section('content')
     <div class="container" style="margin-top:20px">
-
+        @if(session()->has('success'))
+            <div class="alert alert-success" style="align-content: center">
+                <span style="display: table;margin: 0 auto;">{{ session()->get('success') }}</span>
+            </div>
+        @endif
         <form action="/admin/lessons/{{$lesson->id ?? 'create/new'}}" method="post" id="form" enctype="multipart/form-data">
             @csrf
             <!-- Name input -->

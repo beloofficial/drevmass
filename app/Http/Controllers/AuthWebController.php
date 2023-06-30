@@ -6,10 +6,13 @@ use App\Http\Requests\Lesson\StoreLessonRequest;
 use App\Http\Requests\Lesson\UpdateLessonRequest;
 use App\Http\Requests\Product\StoreProductRequest;
 use App\Http\Requests\Product\UpdateProductRequest;
+use App\Http\Requests\Support\AnswerSupportRequest;
 use App\Models\Lesson;
 use App\Models\Product;
+use App\Models\Support;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
 
 class AuthWebController extends Controller
@@ -75,7 +78,7 @@ class AuthWebController extends Controller
         $lesson->fill($data);
         $lesson->save();
 
-        return redirect()->back();
+        return redirect()->back()->with('success', 'Изменения сохранены!');
     }
 
     /**
@@ -113,7 +116,7 @@ class AuthWebController extends Controller
 
         $lesson = Lesson::create($data);
 
-        return redirect('admin/lessons/' . $lesson->id);
+        return redirect('admin/lessons/' . $lesson->id)->with('success', 'Изменения сохранены!');
     }
 
     public function products()
@@ -145,7 +148,7 @@ class AuthWebController extends Controller
         $product->fill($data);
         $product->save();
 
-        return redirect()->back();
+        return redirect()->back()->with('success', 'Изменения сохранены!');
     }
 
     public function deleteProduct(Product $product)
@@ -175,6 +178,42 @@ class AuthWebController extends Controller
 
         $product = Product::create($data);
 
-        return redirect('admin/products/' . $product->id);
+        return redirect('admin/products/' . $product->id)->with('success', 'Изменения сохранены!');
+    }
+
+    public function supports(Request $request)
+    {
+        $answer = !!$request->answer;
+
+        $supports = DB::table('supports')
+            ->join('users', 'users.id', '=', 'supports.user_id')
+            ->select('supports.*', 'users.email');
+        if(!$answer) {
+            $supports = $supports->whereNull('answer_description');
+        } else {
+            $supports = $supports->whereNotNull('answer_description');
+        }
+
+        return view('supports', ['supports' => $supports->get(), 'answer' => $answer]);
+    }
+
+    public function showSupport(int $supportId)
+    {
+        $support = DB::table('supports')
+            ->join('users', 'users.id', '=', 'supports.user_id')
+            ->select('supports.*', 'users.email')
+            ->where('supports.id', $supportId)
+            ->first();
+
+        return view('support', ['support' => $support]);
+    }
+
+    public function updateSupport(Support $support, AnswerSupportRequest $request)
+    {
+        $data = $request->validated();
+        $support->fill($data);
+        $support->save();
+
+        return redirect()->back()->with('success', 'Изменения сохранены!');
     }
 }
