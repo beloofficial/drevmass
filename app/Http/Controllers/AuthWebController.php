@@ -217,7 +217,7 @@ class AuthWebController extends Controller
         $support->fill($data);
         $support->save();
 
-        Notification::send(User::find(1), new SupportFromAdminNotification($support, $support->user));
+        Notification::send($support->user, new SupportFromAdminNotification($support, User::find(1)));
 
         return redirect()->back()->with('success', 'Изменения сохранены!');
     }

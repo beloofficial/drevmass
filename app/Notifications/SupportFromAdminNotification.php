@@ -18,17 +18,17 @@ class SupportFromAdminNotification extends Notification
     /**
      * @var User $client
      */
-    protected User $client;
+    protected User $admin;
 
     /**
      * Create a new notification instance.
      *
      * @return void
      */
-    public function __construct(Support $support, User $client)
+    public function __construct(Support $support, User $admin)
     {
         $this->support = $support;
-        $this->client = $client;
+        $this->admin = $admin;
     }
 
     /**
@@ -49,7 +49,7 @@ class SupportFromAdminNotification extends Notification
     {
         return (new MailMessage)
             ->from(config('mail.from.address'), config('app.name'))
-            ->greeting(Lang::get('passwords.reset_password_greeting') . ' ' . $this->client->name . '!')
+            ->greeting(Lang::get('passwords.reset_password_greeting') . ' ' . $notifiable->name . '!')
             ->subject(Lang::get('support.subject'))
             ->line(Lang::get('support.subject') . '.')
             ->line(Lang::get('support.your_description'))
