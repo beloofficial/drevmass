@@ -23,7 +23,7 @@
             @foreach($supports as $key => $support)
             <tr>
                 <td>
-                    <p class="fw-normal mb-1">{{$key}}</p>
+                    <p class="fw-normal mb-1">{{$support->id}}</p>
                 </td>
                 <td>
                     <p class="fw-normal mb-1">{{$support->email}}</p>

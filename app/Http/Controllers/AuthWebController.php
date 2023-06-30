@@ -196,6 +196,7 @@ class AuthWebController extends Controller
         } else {
             $supports = $supports->whereNotNull('answer_description');
         }
+        $supports = $supports->orderByDesc('supports.id');
 
         return view('supports', ['supports' => $supports->get(), 'answer' => $answer]);
     }
