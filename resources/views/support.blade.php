@@ -26,6 +26,7 @@
             <div class="form-outline mb-4">
                 <textarea class="form-control" id="form4Example3" name="answer_description" rows="4">{{$support->answer_description}}</textarea>
                 <label class="form-label" for="form4Example3">Ваш ответ</label>
+                @if($errors->has('answer_description')) <label class="form-label" for="form4Example1" style="color:red">Заполните поле</label> @endif
             </div>
 
             <!-- Submit button -->
