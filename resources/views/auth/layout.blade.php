@@ -43,6 +43,12 @@
             margin-left: 0;
             margin-right: 0;
         }
+
+        .form-control:focus {
+            outline: none ;
+            border:none;
+            box-shadow: none;
+        }
     </style>
 </head>
 <body>
