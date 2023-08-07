@@ -17,7 +17,7 @@ class AuthController extends Controller
 
         $request = $request->validate([
             'name'=>'required|string',
-            'email'=>'required|string|email|unique:users',
+            'email'=>'required|email|unique:users,email,NULL,id,deleted_at,NULL',
             'password'=>'required|min:8|confirmed'
         ]);
 
@@ -100,5 +100,15 @@ class AuthController extends Controller
         return $status === Password::PASSWORD_RESET
             ? redirect()->route('password-reset-success')->with('status', __($status))
             : back()->withErrors(['email' => [__($status)]]);
+    }
+
+    
+    public function delete(): \Illuminate\Http\JsonResponse
+    {
+        auth()->user()->delete();
+
+        return response()->json([
+            'message' => 'User deleted',
+        ]);
     }
 }
