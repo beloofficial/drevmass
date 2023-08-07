@@ -41,6 +41,7 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
         Route::get('/', [UserController::class, 'show']);
         Route::get('/information', [UserController::class, 'showUserInformation']);
         Route::post('/', [UserController::class, 'update']);
+        Route::post('/delete', [AuthController::class, 'delete']);
     });
 
     Route::group(['prefix' => 'lessons'], function() {
